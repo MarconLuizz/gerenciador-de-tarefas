@@ -9,6 +9,9 @@ O **Gerenciador de Tarefas** é um sistema web desenvolvido com foco em organiza
 Este projeto busca ajudar pessoas que desejam se organizar melhor, mantendo o controle de suas atividades e prazos. Com uma interface prática e eficiente, o usuário tem total controle sobre suas tarefas, podendo planejar seu dia de forma objetiva.
 
 ---
+## 🤝 Colaboradores
+<table> <tr> <td align="center"> <img src="https://github.com/MarconLuizz.png" width="100px;" alt="Luiz Marçon"/><br /> <sub><b>Luiz Antonio da Silva Marçon</b></sub><br /> <a href="https://github.com/MarconLuizz" target="_blank">@MarconLuizz</a> </td> <td align="center"> <img src="https://github.com/IgorMartins04.png" width="100px;" alt="Igor Martins"/><br /> <sub><b>Igor Martins dos Santos</b></sub><br /> <a href="https://github.com/SEU-USUARIO-IGOR" target="_blank">@Igor</a> </td> </tr> </table>
+---
 
 ## 👥 Público-alvo
 
