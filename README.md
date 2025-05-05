@@ -1,70 +1,51 @@
-# Getting Started with Create React App
+# 📝 Gerenciador de Tarefas
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+O **Gerenciador de Tarefas** é um sistema web desenvolvido com foco em organização pessoal. Ele permite que o usuário adicione, marque como concluídas e remova tarefas de forma simples e intuitiva, contribuindo para o aumento da produtividade diária.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🎯 Objetivo
 
-### `npm start`
+Este projeto busca ajudar pessoas que desejam se organizar melhor, mantendo o controle de suas atividades e prazos. Com uma interface prática e eficiente, o usuário tem total controle sobre suas tarefas, podendo planejar seu dia de forma objetiva.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 👥 Público-alvo
 
-### `npm test`
+Pessoas que buscam uma ferramenta leve e funcional para **organização de tarefas pessoais**.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🚧 Status do Projeto
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+🟡 **Parcialmente concluído**  
+📌 O projeto está em andamento, com previsão de melhorias e manutenções futuras.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🛠️ Tecnologias Utilizadas
 
-### `npm run eject`
+- [React.js](https://reactjs.org/)
+- Hook: `useReducer`
+- [Material UI](https://mui.com/)
+- [JSON Placeholder](https://jsonplaceholder.typicode.com/) (API simulada)
+- Node.js (para execução local)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🚀 Como executar o projeto
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Siga os passos abaixo para rodar o projeto localmente:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+# 1. Clone o repositório
+git clone https://github.com/seu-usuario/gerenciador-de-tarefas.git
 
-## Learn More
+# 2. Acesse a pasta do projeto
+cd gerenciador-de-tarefas
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# 3. Instale as dependências
+npm install
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# 4. Inicie o projeto
+npm run dev
