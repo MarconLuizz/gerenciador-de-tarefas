@@ -16,6 +16,7 @@ export default function TaskForm() {
   const [form, setForm] = useState({
     nome: "",
     data: "",
+    horario:"",
     prioridade: "",
     descricao: "",
   });
@@ -25,6 +26,7 @@ export default function TaskForm() {
     const errs = {};
     if (!form.nome) errs.nome = "Obrigatório";
     if (!form.data) errs.data = "Obrigatório";
+    if(!form.horario) errs.horario = "Obrigatório"
     if (!form.prioridade) errs.prioridade = "Obrigatório";
     return errs;
   }
@@ -66,6 +68,15 @@ export default function TaskForm() {
             onChange={(e) => setForm({ ...form, data: e.target.value })}
             error={!!errors.data}
             helperText={errors.data}
+          />
+          <TextField
+             label="Horário"
+             type="time"
+             InputLabelProps={{ shrink: true }}
+             value={form.horario}
+             onChange={(e) => setForm({ ...form, horario: e.target.value })}
+             error={!!errors.horario}
+             helperText={errors.horario}
           />
           <TextField
             select
