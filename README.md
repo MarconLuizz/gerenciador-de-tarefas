@@ -11,8 +11,8 @@ Este projeto busca ajudar pessoas que desejam se organizar melhor, mantendo o co
 ---
 ## 🤝 Colaboradores
 <table> <tr> <td align="center"> <img src="https://github.com/MarconLuizz.png" width="100px;" alt="Luiz Marçon"/><br /> <sub><b>Luiz Antonio da Silva Marçon</b></sub><br /> <a href="https://github.com/MarconLuizz" target="_blank">@MarconLuizz</a> </td> <td align="center"> <img src="https://github.com/IgorMartins04.png" width="100px;" alt="Igor Martins"/><br /> <sub><b>Igor Martins dos Santos</b></sub><br /> <a href="https://github.com/SEU-USUARIO-IGOR" target="_blank">@Igor</a> </td> </tr> </table>
----
 
+---
 ## 👥 Público-alvo
 
 Pessoas que buscam uma ferramenta leve e funcional para **organização de tarefas pessoais**.
