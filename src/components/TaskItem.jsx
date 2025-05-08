@@ -1,5 +1,7 @@
+// src/components/TaskItem.jsx
 import React, { useContext, useState, useEffect } from "react";
 import { TaskContext } from "../contexts/TaskContext";
+import { NotificationContext } from "../contexts/NotificationContext";
 import {
   Card,
   CardContent,
@@ -12,7 +14,7 @@ import {
   DialogContentText,
   DialogActions,
   TextField,
-  Button
+  Button,
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -20,13 +22,15 @@ import EditIcon from "@mui/icons-material/Edit";
 
 export default function TaskItem({ task }) {
   const { dispatch } = useContext(TaskContext);
+  const { notify } = useContext(NotificationContext);
+
   const [openDesc, setOpenDesc] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [editedTask, setEditedTask] = useState({ ...task });
   const [tempoRestante, setTempoRestante] = useState("");
-  const [isUrgente, setIsUrgente] = useState(false);  // sinal de urgência
-  
-  // Atualiza tempo restante a cada segundo e sinaliza urgência (<30min)
+  const [isUrgente, setIsUrgente] = useState(false);
+
+  // Atualiza tempo restante a cada segundo
   useEffect(() => {
     function updateTempo() {
       if (!task.data || !task.horario) {
@@ -37,44 +41,67 @@ export default function TaskItem({ task }) {
       const dataHoraStr = `${task.data}T${task.horario}`;
       const dataHora = new Date(dataHoraStr);
       if (isNaN(dataHora.getTime())) {
-        setTempoRestante("Invalid");
+        setTempoRestante("Inválido");
         setIsUrgente(false);
         return;
       }
-      const agora = new Date();
-      const diff = dataHora - agora;
+      const diff = dataHora - new Date();
       if (diff <= 0) {
         setTempoRestante("Expirado");
         setIsUrgente(false);
       } else {
-        const horas = Math.floor(diff / (1000 * 60 * 60));
-        const minutos = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const segundos = Math.floor((diff % (1000 * 60)) / 1000);
-        const pad = (n) => String(n).padStart(2, '0');
-        setTempoRestante(`${pad(horas)}h ${pad(minutos)}m ${pad(segundos)}s`);
-        setIsUrgente(diff <= 30 * 60 * 1000);
+        const h = Math.floor(diff / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        const pad = (n) => String(n).padStart(2, "0");
+        setTempoRestante(`${pad(h)}h ${pad(m)}m ${pad(s)}s`);
+        setIsUrgente(diff <= 30 * 60000);
       }
     }
+
     updateTempo();
-    const interval = setInterval(updateTempo, 1000);
-    return () => clearInterval(interval);
+    const t = setInterval(updateTempo, 1000);
+    return () => clearInterval(t);
   }, [task.data, task.horario]);
 
+  // Handlers de diálogo
   const handleOpenDesc = () => setOpenDesc(true);
   const handleCloseDesc = () => setOpenDesc(false);
+
   const handleOpenEdit = (e) => {
     e.stopPropagation();
     setEditedTask({ ...task });
     setOpenEdit(true);
   };
   const handleCloseEdit = () => setOpenEdit(false);
+
+  // Ações com notificação
+  const handleConclude = (e) => {
+    e.stopPropagation();
+    dispatch({ type: "CONCLUIR", payload: task.id });
+    notify(
+      !task.concluida
+        ? "Tarefa marcada como concluída!"
+        : "Tarefa reaberta com sucesso!",
+      "success"
+    );
+  };
+
+  const handleRemove = (e) => {
+    e.stopPropagation();
+    dispatch({ type: "REMOVER", payload: task.id });
+    notify("Tarefa removida com sucesso!", "info");
+  };
+
   const handleEditChange = (e) => {
     const { name, value } = e.target;
-    setEditedTask({ ...editedTask, [name]: value });
+    setEditedTask((t) => ({ ...t, [name]: value }));
   };
+
   const salvarEdicao = () => {
     dispatch({ type: "EDITAR", payload: { id: task.id, dados: editedTask } });
     setOpenEdit(false);
+    notify("Tarefa editada com sucesso!", "success");
   };
 
   return (
@@ -87,28 +114,41 @@ export default function TaskItem({ task }) {
           textDecoration: task.concluida ? "line-through" : "none",
         }}
       >
-        <CardContent sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <CardContent
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <Box>
             <Typography variant="h6">{task.nome}</Typography>
-            <Typography variant="body2">Venc.: {task.data} às {task.horario}</Typography>
-            <Typography variant="body2">Prioridade: {task.prioridade}</Typography>
+            <Typography variant="body2">
+              Venc.: {task.data} às {task.horario}
+            </Typography>
+            <Typography variant="body2">
+              Prioridade: {task.prioridade}
+            </Typography>
             {tempoRestante && (
               <Typography
                 variant="caption"
-                sx={{ color: isUrgente ? 'error.main' : 'text.secondary' }}
+                sx={{ color: isUrgente ? "error.main" : "text.secondary" }}
               >
                 Tempo restante: {tempoRestante}
               </Typography>
             )}
           </Box>
+
           <Box onClick={(e) => e.stopPropagation()}>
-            <IconButton onClick={() => dispatch({ type: "CONCLUIR", payload: task.id })}>
+            <IconButton onClick={handleConclude}>
               <CheckCircleIcon color={task.concluida ? "success" : "action"} />
             </IconButton>
+
             <IconButton color="primary" onClick={handleOpenEdit}>
               <EditIcon />
             </IconButton>
-            <IconButton color="error" onClick={() => dispatch({ type: "REMOVER", payload: task.id })}>
+
+            <IconButton color="error" onClick={handleRemove}>
               <DeleteIcon />
             </IconButton>
           </Box>
@@ -131,7 +171,9 @@ export default function TaskItem({ task }) {
       {/* Diálogo de edição */}
       <Dialog open={openEdit} onClose={handleCloseEdit} fullWidth>
         <DialogTitle>Editar Tarefa</DialogTitle>
-        <DialogContent sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 1 }}>
+        <DialogContent
+          sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 1 }}
+        >
           <TextField
             label="Nome"
             name="nome"
@@ -176,7 +218,9 @@ export default function TaskItem({ task }) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseEdit}>Cancelar</Button>
-          <Button variant="contained" onClick={salvarEdicao}>Salvar</Button>
+          <Button variant="contained" onClick={salvarEdicao}>
+            Salvar
+          </Button>
         </DialogActions>
       </Dialog>
     </>

@@ -19,11 +19,11 @@ function taskReducer(state, action) {
           ? { ...task, concluida: !task.concluida }
           : task
       );
-      case "EDITAR":
-        return state.map((task) =>
-          task.id === action.payload.id
-            ? { ...task, ...action.payload.dados }
-            : task
+    case "EDITAR":
+      return state.map((task) =>
+        task.id === action.payload.id
+          ? { ...task, ...action.payload.dados }
+          : task
       );
     default:
       return state;
